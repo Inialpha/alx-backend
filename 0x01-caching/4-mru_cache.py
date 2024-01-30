@@ -20,7 +20,7 @@ class MRUCache(BaseCaching):
                     self.cache_data) >= BaseCaching.MAX_ITEMS \
                             and key not in self.cache_data:
                 pop_key, value = self.cache_data.popitem(False)
-                print(f"DISCARD {pop_key}")
+                print(f"DISCARD: {pop_key}")
             self.cache_data[key] = item
             self.cache_data.move_to_end(key, False)
 
