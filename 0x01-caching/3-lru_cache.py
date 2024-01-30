@@ -19,7 +19,7 @@ class LRUCache(BaseCaching):
             self.cache_data.move_to_end(key, last=False)
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
                 pop_key, value = self.cache_data.popitem()
-                print(f"DISCARD {pop_key}")
+                print(f"DISCARD: {pop_key}")
 
     def get(self, key):
         """ return the value in self.cache_data linked to key """
