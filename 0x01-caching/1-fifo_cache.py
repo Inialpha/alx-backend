@@ -20,6 +20,6 @@ class FIFOCache(BaseCaching):
                 pop_key, value = self.cache_data.popitem(last=False)
                 print(f"DISCARD: {pop_key}")
 
-        def get(self, key):
-            """ return the value in self.cache_data linked to key """
-            return self.cache_data.get(key)
+    def get(self, key):
+        """ return the value in self.cache_data linked to key """
+        return self.cache_data.get(key)
