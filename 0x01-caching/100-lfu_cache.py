@@ -31,7 +31,7 @@ class LFUCache(BaseCaching):
                 pop_key = min_keys[-1]
                 self.cache_data.pop(pop_key)
                 self._frequency.pop(pop_key)
-                print(f"DISCARD {pop_key}")
+                print(f"DISCARD: {pop_key}")
             if key in self._frequency:
                 self._frequency[key] += 1
                 self._frequency.move_to_end(key, last=False)
