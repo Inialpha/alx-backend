@@ -14,7 +14,7 @@ class LFUCache(BaseCaching):
         self.cache_data = OrderedDict()
 
     def min_keys(self):
-        """"""
+        """ return minimum keys """
         min_value = min(self._frequency.values())
         return [key for key, value in self._frequency.items() if value ==
                 min_value]
