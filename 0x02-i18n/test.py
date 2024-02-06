@@ -11,6 +11,25 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
+class Config:
+    """ configure bael """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
+
+def get_locale() -> str:
+    """ return the best match """
+    locale = request.args.get('locale', None)
+    if locale and locale in app.config["LANGUAGES"]:
+        return locale
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
+
+
+app = Flask(__name__)
+app.config.from_object(Config)
+babel = Babel(app, locale_selector=get_locale)
+
 def get_user() -> Union[Dict, None]:
     """ get_user function """
     user = request.args.get('login_as')
@@ -23,21 +42,7 @@ def before_request() -> None:
     """ before_request function """
     user = get_user()
     g.user = user
-
-
-class Config:
-    """ configure bael """
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
-
-
-app = Flask(__name__)
-app.config.from_object(Config)
-babel = Babel(app)
-
-
-@babel.localeselector
+#@babel.localeselector
 def get_locale() -> str:
     """ return the best match """
     locale = request.args.get('locale', None)
