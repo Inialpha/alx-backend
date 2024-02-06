@@ -11,6 +11,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 class Config:
     """ configure bael """
     LANGUAGES = ["en", "fr"]
@@ -39,11 +40,13 @@ def get_user() -> Union[Dict, None]:
         user = users.get(int(user))
     return user
 
+
 @app.before_request
 def before_request() -> None:
     """ before_request function """
     user = get_user()
     g.user = user
+
 
 @app.route('/', strict_slashes=False)
 def index() -> str:
