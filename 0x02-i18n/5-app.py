@@ -11,20 +11,6 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
-def get_user() -> Union[Dict, None]:
-    """ get_user function """
-    user = request.args.get('login_as')
-    if user:
-        user = users.get(int(user), None)
-    return user
-
-@app.before_request
-def before_request() -> None:
-    """ before_request function """
-    user = get_user()
-    g.user = user
-
-
 class Config:
     """ configure bael """
     LANGUAGES = ["en", "fr"]
@@ -40,11 +26,24 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale() -> str:
     """ return the best match """
-    locale = request.args.get('locale', None)
+    locale = request.args.get('locale')
     if locale and locale in app.config["LANGUAGES"]:
         return locale
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
+
+def get_user() -> Union[Dict, None]:
+    """ get_user function """
+    user = request.args.get('login_as')
+    if user:
+        user = users.get(int(user))
+    return user
+
+@app.before_request
+def before_request() -> None:
+    """ before_request function """
+    user = get_user()
+    g.user = user
 
 @app.route('/', strict_slashes=False)
 def index() -> str:
