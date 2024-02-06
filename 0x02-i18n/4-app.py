@@ -19,7 +19,7 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale() -> str:
     """ return the best match """
-    locale = (request.args.get('locale'))
+    locale = request.args.get('locale')
     if locale and locale in app.config['LANGUAGES']:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
@@ -32,4 +32,4 @@ def index() -> str:
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
