@@ -25,3 +25,4 @@ msgstr ""
 msgid "home_header"
 msgstr ""
 
+"Generated-By: Babel 2.10.1\n"
